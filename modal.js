@@ -59,27 +59,43 @@ modalBtnClose.addEventListener("click", function () {          // Évènement au
 });
 
 // Création des RegEx
+
+// ----- RegExp qui vérifie que le text contient minimum deux caractères  -----
+
 let regExTypeText = new RegExp(
   '^([A-Za-z]{2,20})?([-]{0,1})?([A-Za-z]{2,20})$'            // Une expression rationnelle qui prends en condition des lettres en Maj et Min entre 2 à 20 + - + 2 à 20 de plus ex : Jean-Pierre
 );
+
+// RegExp pour vérifier que le mail contient bien des lettres et/ ou des chiffres, puis un arrobase ensuite à nouveau des lettres et/ou des chiffres un point et enfin des lettres et/ou des chiffres   -----
+
+
 let regExTypeEmail = new RegExp(                              // Une expression rationnelle qui prends en condition pour les emails
   '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$'
 );
 
 // ----- FONCTION GENERIQUE POUR FirstName + LastName + Email -----
+
+// ----- addEventListener exécute la focntion generiqueValidate si le champs firstName change  -----
+
 firstName.addEventListener('change', function () {
   generiqueValidate(this, regExTypeText, "Veuillez rentrer deux caractères minimum", firstNameText, this);
 });
 
+// ----- addEventListener exécute la fonction generiqueValidate si le champs lastName change  -----
 
 lastName.addEventListener('change', function () {
   generiqueValidate(this, regExTypeText, "Veuillez rentrer deux caractères minimum", lastNameText, this);
 });
 
+// ----- addEventListener exécute la focntion generiqueValidate si le champs email change  -----
+
 email.addEventListener('change', function () {
   generiqueValidate(this, regExTypeEmail, "Veuillez rentrer un adresse email valide", emailText, this);
 });
 
+
+// ----- Fonction pour qui permet de renvoyer un champ valide en cas de bonne saisie -----
+// ----- Ou un message de champs non valide dans le cas contraire -----
 
 function generiqueValidate(input, regEx, msg, label, border) {    // Paramètres
 
@@ -102,15 +118,24 @@ function generiqueValidate(input, regEx, msg, label, border) {    // Paramètres
   }
 }
 
-// ----- ANNIVERSAIRE-----
+
+// ----- Fonction pour vérifier si la date de naissance fait bien partie du passé -----
+
+// ----- addEventListener exécute la focntion validBirthdate si le champs Birthdate change  -----
+
+
 birthdate.addEventListener('change', function () {
   validBirthdate(this);
 });
 
-const validBirthdate = function () {
+function validBirthdate() {
 
-  if (!birthdate) {
-    birthdateText.innerHTML = "Veuillez entrer une date de naissance valide";
+  let dateToday = Date.now();
+
+  console.log(new Date(document.getElementById('birthdate').value) >= dateToday);
+
+  if (new Date(document.getElementById('birthdate').value) >= dateToday) {
+    birthdateText.innerHTML = "Veuillez renseigner une date de naissance passée";
     birthdateText.classList.remove('text-succes');
     birthdateText.classList.add('text-danger');
     birthdate.classList.remove('border-succes');
@@ -126,7 +151,13 @@ const validBirthdate = function () {
   }
 };
 
+
+
+
 // ----- NOMBRE DE TOURNOIS -----
+
+// ----- addEventListener exécute la focntion validQuantity si le champs qunantity change  -----
+
 quantity.addEventListener('change', function () {
   validQuantity(this);
 });
@@ -171,6 +202,9 @@ function verifLocationTournament() {
   return false;
 }
 
+// ----- addEventListener écoute si locationTournament change et exécute la fonction  -----
+
+
 locationTournament.forEach((checkedBoxInput) => checkedBoxInput.addEventListener('change', function () {
   validLocationTournament();
 }));
@@ -191,6 +225,9 @@ function validLocationTournament() {
 
 
 // ----- CONDITIONS -----
+
+// ----- addEventListener exécute la focntion validCondition si le champ condition change  -----
+
 condition.addEventListener('change', function () {
   validCondition(this);
 });
@@ -223,8 +260,8 @@ function validate() {
   if (generiqueValidate(firstName, regExTypeText, "Merci de renseigner un 'Prénom'", firstNameText, firstName)
     && generiqueValidate(lastName, regExTypeText, "Merci de renseigner un 'Nom'", lastNameText, lastName)
     && generiqueValidate(email, regExTypeEmail, "Merci de renseigner 'E-mail'", emailText, email)
-    && validBirthdate(birthdate)
     && validQuantity(quantity)
+    && validBirthdate(birthdate)
     && validLocationTournament()
     && validCondition(condition)) {
 
@@ -274,6 +311,13 @@ function checkInputs() {
     birthdateText.classList.add('text-danger');
     birthdate.classList.remove('border-succes');
     birthdate.classList.add('border-danger');
+  }
+  else {
+    birthdateText.innerHTML = "Champs Valide";
+    birthdateText.classList.remove('text-danger');
+    birthdateText.classList.add('text-succes');
+    birthdate.classList.remove('border-danger');
+    birthdate.classList.add('border-succes');
   }
 
   if (document.getElementById('quantity').value == "") {
