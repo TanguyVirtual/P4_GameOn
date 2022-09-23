@@ -1,4 +1,4 @@
-//@ts-nocheck
+//----- @ts-nocheck -----
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -8,7 +8,7 @@ function editNav() {
   }
 }
 
-// DOM Elements
+// ----- DOM Elements -----
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const modalBtnClose = document.querySelector(".close");
@@ -16,7 +16,7 @@ const formData = document.querySelectorAll(".formData");
 const form = document.getElementById("form");
 const validForm = document.querySelector(".validationForm");
 
-// Const récupérer les champs du formulaire
+// ----- Const récupérer les champs du formulaire
 const firstName = document.getElementById("firstName");
 const firstNameValue = firstName.value.trim();
 const lastName = document.getElementById("lastName");
@@ -29,7 +29,7 @@ const validMessage = document.getElementById("validMessage");
 const btnSubmit = document.getElementById("btnSubmit");
 const btnValid = document.getElementById("btnValid");
 
-// Const pour les champs valide ou non
+// ----- Const pour les champs valide ou non -----
 const firstNameText = document.getElementById("firstNameText");
 const lastNameText = document.getElementById("lastNameText");
 const emailText = document.getElementById("emailText");
@@ -40,35 +40,32 @@ const conditionText = document.getElementById("conditionText");
 
 // ----- Evènement pour ouvrir ou fermer le Formulaire -----
 
-// Open modal event
+// ----- Open modal event -----
 modalBtn.forEach((btn) => btn.addEventListener("click", openModal));
 
-// Open modal form
+// ----- Open modal form -----
 function openModal() {
-  modalbg.style.display = "block";                            // Ajout a modalbg un display : block; au css css pour le faire apparaitre
+  modalbg.style.display = "block";                            // ----- Ajout a modalbg un display : block; au css css pour le faire apparaitre -----
 };
 
-// Hidemodal form
+//----- Hidemodal form -----
 function hideModal() {
-  modalbg.style.display = "none";                             // Ajout a modalbg un display : none; au css pour le faire disparaitre
+  modalbg.style.display = "none";                             // ----- Ajout a modalbg un display : none; au css pour le faire disparaitre -----
 };
 
-// Close modal form 
-modalBtnClose.addEventListener("click", function () {          // Évènement au click
-  modalbg.style.display = "none";                             // Pour fermer la modal avec le bouton close
+//----- Close modal form -----
+modalBtnClose.addEventListener("click", function () {          // ----- Évènement au click -----
+  modalbg.style.display = "none";                             // ----- Pour fermer la modal avec le bouton close -----
 });
 
-// Création des RegEx
-
-// ----- RegExp qui vérifie que le text contient minimum deux caractères  -----
-
+//----- RegExp qui prends en condition des lettres en Maj et Min entre 2 à 20 + - + 2 à 20 de plus ex : Jean-Pierre -----
 let regExTypeText = new RegExp(
-  '^([A-Za-z]{2,20})?([-]{0,1})?([A-Za-z]{2,20})$'            // Une expression rationnelle qui prends en condition des lettres en Maj et Min entre 2 à 20 + - + 2 à 20 de plus ex : Jean-Pierre
+  '^([A-Za-z]{2,20})?([-]{0,1})?([A-Za-z]{2,20})$'
 );
 
-// RegExp pour vérifier que le mail contient bien des lettres et/ ou des chiffres, puis un arrobase ensuite à nouveau des lettres et/ou des chiffres un point et enfin des lettres et/ou des chiffres   -----
-
-
+//----- RegExp pour vérifier que le mail contient bien des lettres
+// et/ ou des chiffres, puis un arrobase ensuite à nouveau des lettres
+// et/ou des chiffres un point et enfin des lettres et/ou des chiffres   -----
 let regExTypeEmail = new RegExp(                              // Une expression rationnelle qui prends en condition pour les emails
   '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$'
 );
@@ -76,19 +73,16 @@ let regExTypeEmail = new RegExp(                              // Une expression 
 // ----- FONCTION GENERIQUE POUR FirstName + LastName + Email -----
 
 // ----- addEventListener exécute la focntion generiqueValidate si le champs firstName change  -----
-
 firstName.addEventListener('change', function () {
   generiqueValidate(this, regExTypeText, "Veuillez rentrer deux caractères minimum", firstNameText, this);
 });
 
 // ----- addEventListener exécute la fonction generiqueValidate si le champs lastName change  -----
-
 lastName.addEventListener('change', function () {
   generiqueValidate(this, regExTypeText, "Veuillez rentrer deux caractères minimum", lastNameText, this);
 });
 
-// ----- addEventListener exécute la focntion generiqueValidate si le champs email change  -----
-
+// ----- addEventListener exécute la fonction generiqueValidate si le champs email change  -----
 email.addEventListener('change', function () {
   generiqueValidate(this, regExTypeEmail, "Veuillez rentrer un adresse email valide", emailText, this);
 });
@@ -96,7 +90,6 @@ email.addEventListener('change', function () {
 
 // ----- Fonction pour qui permet de renvoyer un champ valide en cas de bonne saisie -----
 // ----- Ou un message de champs non valide dans le cas contraire -----
-
 function generiqueValidate(input, regEx, msg, label, border) {    // Paramètres
 
   let testValid = regEx.test(input.value);                    // Un test du RegEx en récupérant la valeur
@@ -121,12 +114,9 @@ function generiqueValidate(input, regEx, msg, label, border) {    // Paramètres
 
 // ----- Fonction pour vérifier si la date de naissance fait bien partie du passé -----
 
-// ----- addEventListener exécute la focntion validBirthdate si le champs Birthdate change  -----
-
-
-birthdate.addEventListener('change', function () {
-  validBirthdate(this);
-});
+// ----- addEventListener exécute la fonction validBirthdate si le champs Birthdate change  -----
+birthdate.addEventListener('change',
+  validBirthdate);
 
 function validBirthdate() {
 
@@ -141,7 +131,8 @@ function validBirthdate() {
     birthdate.classList.remove('border-succes');
     birthdate.classList.add('border-danger');
     return false;
-  } else {
+  }
+  else {
     birthdateText.innerHTML = "Champs Valide";
     birthdateText.classList.remove('text-danger');
     birthdateText.classList.add('text-succes');
@@ -157,13 +148,12 @@ function validBirthdate() {
 // ----- NOMBRE DE TOURNOIS -----
 
 // ----- addEventListener exécute la focntion validQuantity si le champs qunantity change  -----
-
 quantity.addEventListener('change', function () {
   validQuantity(this);
 });
 
 const validQuantity = function () {
-  if (quantity.value === 0 || quantity.value <= 0) {       // Si la valeur est égale à 0 ou si la valeur est supérieure à 0
+  if (quantity.value === 0 || quantity.value <= 0) {       //----- Si la valeur est égale à 0 ou si la valeur est supérieure à 0 -----
     quantityText.innerHTML = "Merci d'indiquer le nombre de tournois";
     quantityText.classList.remove('text-succes');
     quantityText.classList.add('text-danger');
@@ -189,7 +179,7 @@ const validQuantity = function () {
 
 // ----- VILLES -----
 
-// Fonctions pour les lieux de tournois si d'autres villes sont ajoutés dans le futur
+//----- Fonctions pour les lieux de tournois si d'autres villes sont ajoutés dans le futur -----
 function verifLocationTournament() {
   let locTournamentCheck = false;
   for (let i = 0; i < locationTournament.length; i++) {
@@ -203,8 +193,6 @@ function verifLocationTournament() {
 }
 
 // ----- addEventListener écoute si locationTournament change et exécute la fonction  -----
-
-
 locationTournament.forEach((checkedBoxInput) => checkedBoxInput.addEventListener('change', function () {
   validLocationTournament();
 }));
@@ -227,12 +215,11 @@ function validLocationTournament() {
 // ----- CONDITIONS -----
 
 // ----- addEventListener exécute la focntion validCondition si le champ condition change  -----
-
 condition.addEventListener('change', function () {
   validCondition(this);
 });
 
-// Vérifie si les conditions sont biens cochées ou non
+//----- Vérifie si les conditions sont biens cochées ou non -----
 const validCondition = function () {
   if (condition.checked == false) {
     conditionText.innerHTML = "Merci d'accepter les conditions d'utilisations";
@@ -254,31 +241,58 @@ function openRemerciments() {
   validMessage.innerHTML = "Merci ! Votre inscription à bien était prise en compte";
 };
 
+//----- Vérifie que le champs date de naissance à bien était rempli -----
+function checkDatedeNaissance() {
+  if (document.getElementById('birthdate').value == "") {
+    birthdateText.innerHTML = "Veuillez renseigner une date de naissance";
+    birthdateText.classList.remove('text-succes');
+    birthdateText.classList.add('text-danger');
+    birthdate.classList.remove('border-succes');
+    birthdate.classList.add('border-danger');
+    return false;
+  }
+  else {
+    quantityText.innerHTML = "Champs Valide";
+    quantityText.classList.remove('text-danger');
+    quantityText.classList.add('text-succes');
+    quantity.classList.remove('border-danger');
+    quantity.classList.add('border-succes');
+    return true;
+  }
+}
+
 function validate() {
 
-  // Condition qui vérifie si tous les autres conditions retourne true
+  //----- Condition qui vérifie si tous les autres conditions retourne true -----
   if (generiqueValidate(firstName, regExTypeText, "Merci de renseigner un 'Prénom'", firstNameText, firstName)
     && generiqueValidate(lastName, regExTypeText, "Merci de renseigner un 'Nom'", lastNameText, lastName)
     && generiqueValidate(email, regExTypeEmail, "Merci de renseigner 'E-mail'", emailText, email)
     && validQuantity(quantity)
-    && validBirthdate(birthdate)
     && validLocationTournament()
+    && validBirthdate()
+    && checkDatedeNaissance()
     && validCondition(condition)) {
 
+    //----- renvoie les données saisie dans le formulaire à la console -----
+    console.log('Prénom :', (document.getElementById('firstName').value))
+    console.log('Nom :', (document.getElementById('lastName').value))
+    console.log('E-mail :', (document.getElementById('email').value))
+    console.log('Date de naissance :', (document.getElementById('birthdate').value))
+    console.log('Nombre de Tournois réalisé :', (document.getElementById('quantity').value))
+    console.log('Ville :', (document.getElementsByName("location").value))
+    console.log('Conditions d\'utilisation :', (document.getElementById("checkbox1").value));
     openRemerciments();
 
   }
 }
 
 //----- BTN SUBMIT -----
-
 btnValid.addEventListener("click", function () {
   window.location.reload();
 });
 
 
-//Vérifie si les toutes conditions sont biens rempli, si elle sont vide alors elle affiche un message d'erreur 
-
+//----- Vérifie si les toutes conditions sont biens rempli, si elle sont vide alors elle affiche un message d'erreur -----
 function checkInputs() {
 
   if (document.getElementById('firstName').value == "") {
@@ -297,21 +311,6 @@ function checkInputs() {
     lastName.classList.add('border-danger');
   }
 
-  if (document.getElementById('email').value == "") {
-    emailText.innerHTML = "Veuillez renseigner un email";
-    emailText.classList.remove('text-succes');
-    emailText.classList.add('text-danger');
-    email.classList.remove('border-succes');
-    email.classList.add('border-danger');
-  }
-
-  if (document.getElementById('birthdate').value == "") {
-    birthdateText.innerHTML = "Veuillez renseigner une date de naissance";
-    birthdateText.classList.remove('text-succes');
-    birthdateText.classList.add('text-danger');
-    birthdate.classList.remove('border-succes');
-    birthdate.classList.add('border-danger');
-  }
   else {
     birthdateText.innerHTML = "Champs Valide";
     birthdateText.classList.remove('text-danger');
@@ -333,7 +332,33 @@ function checkInputs() {
     locationText.innerHTML = "Merci de cocher une ville";
     locationText.classList.remove('text-succes');
     locationText.classList.add('text-danger');
+
+
+  }
+
+  if (document.getElementById('email').value == "") {
+    emailText.innerHTML = "Veuillez renseigner un email";
+    emailText.classList.remove('text-succes');
+    emailText.classList.add('text-danger');
+    email.classList.remove('border-succes');
+    email.classList.add('border-danger');
+  }
+
+  if (document.getElementById('birthdate').value == "") {
+    birthdateText.innerHTML = "Veuillez renseigner une date de naissance";
+    birthdateText.classList.remove('text-succes');
+    birthdateText.classList.add('text-danger');
+    birthdate.classList.remove('border-succes');
+    birthdate.classList.add('border-danger');
     return false;
+  }
+  else {
+    quantityText.innerHTML = "Champs Valide";
+    quantityText.classList.remove('text-danger');
+    quantityText.classList.add('text-succes');
+    quantity.classList.remove('border-danger');
+    quantity.classList.add('border-succes');
+    return true;
   }
 }
 
